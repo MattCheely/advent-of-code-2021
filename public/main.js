@@ -1,3 +1,5 @@
-import { Elm } from "../.elm-spa/defaults/Main.elm";
+import { Elm } from "../src/Main.elm";
 
-Elm.Main.init();
+const days = [1, 2];
+
+Elm.Main.init({ flags: days });

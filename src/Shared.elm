@@ -5,10 +5,13 @@ module Shared exposing
     , init
     , subscriptions
     , update
+    , view
     )
 
-import Json.Decode as Json
+import Html exposing (Html, a, div, nav, span, text)
+import Html.Attributes exposing (class, href)
 import Request exposing (Request)
+import View exposing (View)
 
 
 year =
@@ -16,11 +19,13 @@ year =
 
 
 type alias Flags =
-    Json.Value
+    List Int
 
 
 type alias Model =
-    { year : String }
+    { year : String
+    , implementedDays : List Int
+    }
 
 
 type Msg
@@ -28,8 +33,12 @@ type Msg
 
 
 init : Request -> Flags -> ( Model, Cmd Msg )
-init _ _ =
-    ( { year = year }, Cmd.none )
+init _ days =
+    ( { year = year
+      , implementedDays = days
+      }
+    , Cmd.none
+    )
 
 
 update : Request -> Msg -> Model -> ( Model, Cmd Msg )
@@ -42,3 +51,34 @@ update _ msg model =
 subscriptions : Request -> Model -> Sub Msg
 subscriptions _ _ =
     Sub.none
+
+
+view : View msg -> Model -> View msg
+view page model =
+    { title = page.title
+    , body =
+        [ navView model.implementedDays
+        , div [] page.body
+        ]
+    }
+
+
+navView : List Int -> Html msg
+navView days =
+    let
+        dayLinks =
+            List.map dayLink days
+
+        homeLink =
+            a [ href "/" ] [ text "Home" ]
+    in
+    nav []
+        (homeLink
+            :: dayLinks
+            |> List.intersperse (span [ class "nav-divider" ] [])
+        )
+
+
+dayLink : Int -> Html msg
+dayLink day =
+    a [ href ("/day" ++ String.fromInt day) ] [ text "Day ", text (String.fromInt day) ]

@@ -1,4 +1,18 @@
 @import url("https://mattcheely.github.io/editor.css/style/editor.css");
+@import url("font/iosevka.css");
+
+* {
+  font-family: "Iosevka Web", sans-serif;
+}
+
+nav {
+  margin-bottom: 1rem;
+}
+
+.nav-divider:after {
+  content: " | ";
+  color: #ec007c;
+}
 
 .demphasis {
   color: #999;

@@ -9,9 +9,9 @@ import Http
 import Page
 import Request
 import Shared
-import Solutions.Day1.Input as Input
-import Solutions.Day1.Part1 as Part1
-import Solutions.Day1.Part2 as Part2
+import Solutions.Day{{day}}.Input as Input
+import Solutions.Day{{day}}.Part1 as Part1
+import Solutions.Day{{day}}.Part2 as Part2
 import SyntaxHighlight as Highlight
 import View exposing (View)
 
