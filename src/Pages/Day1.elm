@@ -1,7 +1,7 @@
 module Pages.Day1 exposing (Model, Msg, page)
 
 import Advent exposing (TimedResult, getInput, getSolution)
-import Gen.Params.Day01 exposing (Params)
+import Gen.Params.Day1 exposing (Params)
 import Html exposing (Html, a, button, code, div, h1, h2, p, pre, span, text)
 import Html.Attributes exposing (class, href, target)
 import Html.Events exposing (onClick)
