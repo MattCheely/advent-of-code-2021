@@ -49,12 +49,12 @@ getSolution msg { day, part } =
 
 inputUrl : Int -> String
 inputUrl day =
-    "/Solutions/Day" ++ String.fromInt day ++ "/Input.elm"
+    "/Day" ++ String.fromInt day ++ "/Input.elm"
 
 
 solutionUrl : { day : Int, part : Int } -> String
 solutionUrl { day, part } =
-    "/Solutions/Day" ++ String.fromInt day ++ "/Part" ++ String.fromInt part ++ ".elm"
+    "/Day" ++ String.fromInt day ++ "/Part" ++ String.fromInt part ++ ".elm"
 
 
 trimSolutionModule : String -> String
