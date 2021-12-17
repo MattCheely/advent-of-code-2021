@@ -19,7 +19,7 @@ year =
 
 
 type alias Flags =
-    List Int
+    Int
 
 
 type alias Model =
@@ -33,9 +33,9 @@ type Msg
 
 
 init : Request -> Flags -> ( Model, Cmd Msg )
-init _ days =
+init _ onDay =
     ( { year = year
-      , implementedDays = days
+      , implementedDays = List.range 1 onDay
       }
     , Cmd.none
     )

@@ -1,6 +1,6 @@
 module Pages.Home_ exposing (page)
 
-import Gen.Params.Home_ exposing (Params)
+import Gen.Params.Home_ exposing (Params, parser)
 import Html exposing (a, div, h1, p, text)
 import Html.Attributes exposing (class, href)
 import Page exposing (Page)
@@ -27,6 +27,18 @@ view shared =
                 , a [ href ("https://adventofcode.com/" ++ shared.year) ]
                     [ text shared.year, text " Advent of Code" ]
                 , text " in Elm."
+                ]
+            , p []
+                [ text """
+This year, I am not making an effort to create readable or easy to follow code,
+but rather to focus on making my solutions efficient. I wont spend a lot of time
+optimizing them if they are reasonably fast to start, but I will build from the
+beginning with an eye toward avoiding duplicate passes through data structures or
+inefficient access patterns.
+
+I'm also not going to come back and tidy things up once I have a working solution,
+I'll just move on to the next problem. As a result the code may be hard to read.
+"""
                 ]
             ]
         ]

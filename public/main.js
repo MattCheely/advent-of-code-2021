@@ -1,5 +1,5 @@
 import { Elm } from "../src/Main.elm";
 
-const days = [1, 2];
+const onDay = 3;
 
-Elm.Main.init({ flags: days });
+Elm.Main.init({ flags: onDay });

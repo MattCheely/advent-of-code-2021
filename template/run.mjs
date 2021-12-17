@@ -5,19 +5,16 @@ import path from "path";
 import fetch from "node-fetch";
 import mustache from "mustache";
 
-const year = 2021;
-const day = process.argv[2];
-if (!day) {
-  exit("You must provide the day");
-}
-
 await main();
 
 async function main() {
-  console.log(`Setting up for day ${day}`);
-
   const templateDir = path.dirname(fileURLToPath(import.meta.url));
   const codeDir = path.normalize(path.join(templateDir, "../src"));
+  const solutionsDir = path.join(codeDir, "Solutions");
+  const days = fs.readdirSync(solutionsDir);
+  const day = days.length + 1;
+
+  console.log(`Adding day ${day}`);
 
   const pageTemplate = fs
     .readFileSync(path.join(templateDir, "Pages/DayX.elm"))
@@ -35,9 +32,11 @@ async function main() {
   const part2Output = mustache.render(partTemplate, { day: day, part: 2 });
 
   safeWrite(pageOutput, codeDir, `Pages/Day${day}.elm`);
-  safeWrite(inputOutput, codeDir, `Solutions/Day${day}/Input.elm`);
-  safeWrite(part1Output, codeDir, `Solutions/Day${day}/Part1.elm`);
-  safeWrite(part2Output, codeDir, `Solutions/Day${day}/Part2.elm`);
+  safeWrite(inputOutput, solutionsDir, `Day${day}/Input.elm`);
+  safeWrite(part1Output, solutionsDir, `Day${day}/Part1.elm`);
+  safeWrite(part2Output, solutionsDir, `Day${day}/Part2.elm`);
+
+  updateMainJs(codeDir, day);
 }
 
 function safeWrite(content, dir, file) {
@@ -45,6 +44,16 @@ function safeWrite(content, dir, file) {
   const outDir = path.dirname(outFile);
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(outFile, content, { flag: "wx" });
+}
+
+function updateMainJs(codeDir, day) {
+  const mainJs = path.join(codeDir, "../public/main.js");
+  const mainCode = fs.readFileSync(mainJs).toString();
+  const newMainCode = mainCode.replace(
+    /const onDay.*/g,
+    `const onDay = ${day};`
+  );
+  fs.writeFileSync(mainJs, newMainCode);
 }
 
 function exit(message) {

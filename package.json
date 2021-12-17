@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "concurrently \"elm-spa watch\" \"vite\" \"npm run copy.watch\" ",
+    "next-day": "template/run.mjs",
     "copy": "cpx \"src/Solutions/**/*.elm\" public/Solutions -v",
     "copy.watch": "cpx \"src/Solutions/**/*.elm\" public/Solutions -v --watch",
     "build": "elm-spa gen && vite build"
