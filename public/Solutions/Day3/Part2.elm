@@ -4,7 +4,7 @@ module Solutions.Day3.Part2 exposing (answer)
 answer : List String -> String
 answer input =
     (findO2Rating input [] * findCO2Rating input [])
-        |> Debug.toString
+        |> String.fromInt
 
 
 findO2Rating : List String -> List Bool -> Int
