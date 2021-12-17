@@ -12,7 +12,7 @@ import Url exposing (Url)
 import View
 
 
-main : Program Shared.Flags Model Msg
+main : Program Flags Model Msg
 main =
     Browser.application
         { init = init
@@ -33,24 +33,47 @@ type alias Model =
     , key : Key
     , shared : Shared.Model
     , page : Pages.Model
+    , deployPath : String
     }
 
 
-init : Shared.Flags -> Url -> Key -> ( Model, Cmd Msg )
-init flags url key =
+type alias Flags =
+    { basePath : String
+    , shared : Shared.Flags
+    }
+
+
+init : Flags -> Url -> Key -> ( Model, Cmd Msg )
+init flags rawUrl key =
     let
+        url =
+            applyBasePath flags.basePath rawUrl
+
         ( shared, sharedCmd ) =
-            Shared.init (Request.create () url key) flags
+            Shared.init (Request.create () url key) flags.shared
 
         ( page, effect ) =
             Pages.init (Route.fromUrl url) shared url key
     in
-    ( Model url key shared page
+    ( Model url key shared page flags.basePath
     , Cmd.batch
         [ Cmd.map Shared sharedCmd
         , Effect.toCmd ( Shared, Page ) effect
         ]
     )
+
+
+applyBasePath : String -> Url -> Url
+applyBasePath basePath url =
+    let
+        newPath =
+            if String.startsWith basePath url.path then
+                String.dropLeft (String.length basePath) url.path
+
+            else
+                url.path
+    in
+    { url | path = newPath }
 
 
 
@@ -77,7 +100,11 @@ update msg model =
             , Nav.load url
             )
 
-        ChangedUrl url ->
+        ChangedUrl rawUrl ->
+            let
+                url =
+                    applyBasePath model.deployPath rawUrl
+            in
             if url.path /= model.url.path then
                 let
                     ( page, effect ) =
