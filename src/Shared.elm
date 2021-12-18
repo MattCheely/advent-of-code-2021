@@ -10,6 +10,7 @@ module Shared exposing
 
 import Html exposing (Html, a, div, nav, span, text)
 import Html.Attributes exposing (class, href)
+import Path
 import Request exposing (Request)
 import View exposing (View)
 
@@ -70,7 +71,7 @@ navView days =
             List.map dayLink days
 
         homeLink =
-            a [ href "/" ] [ text "Home" ]
+            a [ href (Path.inApp "/") ] [ text "Home" ]
     in
     nav []
         (homeLink
@@ -81,4 +82,4 @@ navView days =
 
 dayLink : Int -> Html msg
 dayLink day =
-    a [ href ("/day" ++ String.fromInt day) ] [ text "Day ", text (String.fromInt day) ]
+    a [ href (Path.inApp ("/day" ++ String.fromInt day)) ] [ text "Day ", text (String.fromInt day) ]

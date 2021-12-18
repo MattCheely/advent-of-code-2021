@@ -1,6 +1,7 @@
 module Advent exposing (TimedResult, getInput, getSolution, timeFn)
 
 import Http exposing (expectString)
+import Path
 import Task
 import Time exposing (posixToMillis)
 
@@ -49,12 +50,14 @@ getSolution msg { day, part } =
 
 inputUrl : Int -> String
 inputUrl day =
-    "/Day" ++ String.fromInt day ++ "/Input.elm"
+    ("/Day" ++ String.fromInt day ++ "/Input.elm")
+        |> Path.inApp
 
 
 solutionUrl : { day : Int, part : Int } -> String
 solutionUrl { day, part } =
-    "/Day" ++ String.fromInt day ++ "/Part" ++ String.fromInt part ++ ".elm"
+    ("/Day" ++ String.fromInt day ++ "/Part" ++ String.fromInt part ++ ".elm")
+        |> Path.inApp
 
 
 trimSolutionModule : String -> String
