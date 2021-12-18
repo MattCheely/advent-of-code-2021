@@ -40,6 +40,7 @@ type alias Model =
 init : Shared.Flags -> Url -> Key -> ( Model, Cmd Msg )
 init flags rawUrl key =
     let
+        -- Normalize the url before init
         url =
             Path.normalizeUrl rawUrl
 

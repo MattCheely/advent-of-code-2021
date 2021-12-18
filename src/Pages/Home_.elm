@@ -35,9 +35,18 @@ but rather to focus on making my solutions efficient. I wont spend a lot of time
 optimizing them if they are reasonably fast to start, but I will build from the
 beginning with an eye toward avoiding duplicate passes through data structures or
 inefficient access patterns.
-
+"""
+                ]
+            , p []
+                [ text """
 I'm also not going to come back and tidy things up once I have a working solution,
 I'll just move on to the next problem. As a result the code may be hard to read.
+"""
+                ]
+            , p []
+                [ text """
+I've also started late, and put most of my time into getting this site up and
+running, so... who knows how much will get done this year? \u{D83D}\u{DE05}
 """
                 ]
             ]
