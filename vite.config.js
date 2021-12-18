@@ -9,10 +9,7 @@ export default defineConfig(({ command, mode }) => {
     root: "public",
     publicDir: "Solutions",
     base: basePath,
-    plugins: [
-      elmPlugin(),
-      configPlugin({ basePath: basePath }, { src: "srcDir" })
-    ],
+    plugins: [elmPlugin(), configPlugin({ basePath: basePath })],
     build: {
       outDir: "../dist",
       emptyOutDir: true
